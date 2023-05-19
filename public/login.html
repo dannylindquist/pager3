@@ -1,0 +1,78 @@
+<html>
+  <head>
+    <title>Imprint Pager - Login</title>
+    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="icon"
+      href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='0.9em' font-size='90'>📟</text></svg>"
+    />
+    <meta name="description" content="Pager app for imprint church" />
+    <link rel="stylesheet" href="/assets/styles.css" />
+    <script type="module" src="/assets/login.js"></script>
+  </head>
+  <body class="bg-black text-white">
+    <main class="mx-auto max-w-md pt-16 px-4">
+      <h1 class="font-black text-6xl tracking-tight text-center py-4">Pager</h1>
+      <form action="/login" method="post">
+        <p class="pt-8 pb-4 text-center">Select Location</p>
+        <div class="space-y-4 w-fit mx-auto">
+          <div>
+            <input
+              id="location-woodinville"
+              class="sr-only peer"
+              type="radio"
+              value="woodinville"
+              name="location"
+              required
+            />
+            <label
+              class="peer-checked:border-yellow-400 border border-gray-600 rounded py-3 px-3 flex text-4xl justify-center"
+              for="location-woodinville"
+            >
+              Woodinville
+            </label>
+          </div>
+          <div>
+            <input
+              id="location-bothell"
+              class="sr-only peer"
+              type="radio"
+              value="bothell"
+              name="location"
+              required
+            />
+            <label
+              class="peer-checked:border-yellow-400 border border-gray-600 rounded py-3 px-3 flex text-4xl justify-center"
+              for="location-bothell"
+            >
+              Bothell</label
+            >
+          </div>
+          <div>
+            <label class="block text-center pb-2" for="password"
+              >Password</label
+            >
+            <input
+              class="w-full py-3 px-2 rounded border border-gray-600 bg-gray-900"
+              id="password"
+              type="password"
+              name="password"
+              required
+            />
+            <div
+              id="error"
+              class="hidden bg-red-300 text-red-950 px-2 py-1 mt-2"
+            ></div>
+          </div>
+          <button
+            class="block py-3 min-w-[100px] rounded border border-gray-600 bg-gray-900 mx-auto"
+            type="submit"
+          >
+            Login
+          </button>
+        </div>
+      </form>
+    </main>
+  </body>
+</html>

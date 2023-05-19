@@ -1,0 +1,61 @@
+<html>
+  <head>
+    <title>Imprint Pager</title>
+    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="icon"
+      href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='0.9em' font-size='90'>📟</text></svg>"
+    />
+    <meta name="description" content="Pager app for imprint church" />
+    <link rel="stylesheet" href="/assets/styles.css" />
+    <script src="/assets/home.js" type="module"></script>
+  </head>
+  <body class="bg-black text-white">
+    <div id="location" class="hidden">{{location}}</div>
+    <div class="flex items-center py-2 px-4">
+      <h1 class="flex-1 font-semibold text-3xl leading-none tracking-tight">
+        {{location}}
+      </h1>
+      <form class="m-0" action="/logout" method="post">
+        <button
+          class="block text-base py-2 min-w-[100px] rounded border border-gray-600 bg-gray-900"
+          type="submit"
+        >
+          Logout
+        </button>
+      </form>
+    </div>
+    <main class="mx-auto max-w-sm pt-16 px-4">
+      <div class="mt-4">
+        <form id="number-entry" action="/message">
+          <label for="value">Child Number: </label>
+          <div class="flex gap-2">
+            <input
+              id="value"
+              class="w-full py-2 px-2 rounded border border-gray-600 bg-gray-900"
+              type="text"
+              name="value"
+            />
+            <button
+              value="update"
+              class="block text-base py-2 min-w-[100px] rounded border border-gray-600 bg-gray-900 mx-auto"
+              type="submit"
+            >
+              Send
+            </button>
+          </div>
+        </form>
+        <a
+          class="block w-fit mx-auto underline text-center"
+          href="/display/{{location}}"
+          >Go to Display</a
+        >
+      </div>
+      <div class="space-y-2 mt-6">
+        <h2 class="border-b border-b-gray-700 pb-1">Current Numbers:</h2>
+        <div id="current-value-block" class="space-y-2">None</div>
+      </div>
+    </main>
+  </body>
+</html>

@@ -1,0 +1,4 @@
+# fly.toml file generated for pager on 2023-05-19T15:36:31-07:00
+
+app = "pager"
+primary_region = "sea"
