@@ -1,8 +1,13 @@
 const formEl = document.querySelector("form");
 const errorEl = document.getElementById("error");
 
+formEl.addEventListener("change", (event) => {
+  if (event.target.name === "location") {
+    document.querySelector("input[type=password]")?.focus();
+  }
+});
+
 formEl.addEventListener("submit", async (e) => {
-  console.log("hello");
   e.preventDefault();
   const data = new FormData(e.target);
   const entries = Object.fromEntries(data.entries());

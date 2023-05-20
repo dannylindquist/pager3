@@ -2,7 +2,7 @@ import polka from "polka";
 import { parse as parseCookie } from "cookie-es";
 import { createHash } from "node:crypto";
 import { ValueStore } from "./valueStore.js";
-import { createReadStream, existsSync } from "node:fs";
+import { createReadStream } from "node:fs";
 import { readFile } from "node:fs/promises";
 import bodyParser from "body-parser";
 
@@ -16,6 +16,11 @@ const app = polka({
 const values = new ValueStore();
 
 const locations = ["bothell", "woodinville"];
+console.log(`bothell${process.env.BOTHELL_PASSWORD}`);
+const BOTHELL_HASH = hashString(`bothell${process.env.BOTHELL_PASSWORD}`);
+const WOODINVILLE_HASH = hashString(
+  `woodinville${process.env.WOODINVILLE_PASSWORD}`
+);
 
 /**
  *
@@ -33,14 +38,10 @@ function hashString(str) {
  */
 function getLocationHash(location) {
   if (location === "bothell") {
-    return createHash("md5")
-      .update(`${location}${process.env.BOTHELL_PASSWORD}`)
-      .digest("hex");
+    return BOTHELL_HASH;
   }
   if (location === "woodinville") {
-    return createHash("md5")
-      .update(`${location}${process.env.WOODINVILLE_PASSWORD}`)
-      .digest("hex");
+    return WOODINVILLE_HASH;
   }
 }
 
@@ -56,6 +57,7 @@ app.use((req, res, next) => {
   if (token) {
     const [location, hash] = token.split("-");
     const expectedHash = getLocationHash(location);
+    console.log(expectedHash, hash);
     if (expectedHash?.toString() === hash) {
       req.token = location;
     }
@@ -153,6 +155,7 @@ app.post("/login", (req, res) => {
     }
   }
   const token = `${location}${password}`;
+  console.log(token);
   const hash = hashString(token);
   res
     .writeHead(200, {
