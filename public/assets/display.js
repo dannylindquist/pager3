@@ -44,11 +44,13 @@ const displayState = {
   },
   startCycle() {
     if (this.state === "idle") {
-      this.state = "showing";
-      this.showValue();
-      this.timer = setInterval(() => {
+      if (this.values.length) {
+        this.state = "showing";
         this.showValue();
-      }, 5000);
+        this.timer = setInterval(() => {
+          this.showValue();
+        }, 5000);
+      }
     } else {
       // all values have been removed
       if (!this.values.length) {
