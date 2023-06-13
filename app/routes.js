@@ -16,7 +16,6 @@ const app = polka({
 const values = new ValueStore();
 
 const locations = ["bothell", "woodinville"];
-console.log(`bothell${process.env.BOTHELL_PASSWORD}`);
 const BOTHELL_HASH = hashString(`bothell${process.env.BOTHELL_PASSWORD}`);
 const WOODINVILLE_HASH = hashString(
   `woodinville${process.env.WOODINVILLE_PASSWORD}`
@@ -57,7 +56,6 @@ app.use((req, res, next) => {
   if (token) {
     const [location, hash] = token.split("-");
     const expectedHash = getLocationHash(location);
-    console.log(expectedHash, hash);
     if (expectedHash?.toString() === hash) {
       req.token = location;
     }
@@ -155,7 +153,6 @@ app.post("/login", (req, res) => {
     }
   }
   const token = `${location}${password}`;
-  console.log(token);
   const hash = hashString(token);
   res
     .writeHead(200, {
@@ -203,11 +200,11 @@ app.post("/message", async (req, res) => {
   res.writeHead(200).end();
 });
 
-app.delete("/messages/:message", async (req, res) => {
+app.delete("/message", async (req, res) => {
   if (!req.token) {
     res.writeHead(403).end("not authorized");
   }
-  const value = req.params.message;
+  const value = req.body.value;
   if (value) {
     values.remove(req.token, value);
   }

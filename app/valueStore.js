@@ -46,6 +46,7 @@ export class ValueStore {
     if (location in this.values) {
       const upperValue = value.toUpperCase();
       const initialLength = this.values[location].length;
+      console.log("removing", value, this.values[location]);
       this.values[location] = this.values[location].filter(
         (x) => x !== upperValue
       );
