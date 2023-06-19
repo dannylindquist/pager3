@@ -34,6 +34,10 @@ function renderValues() {
 numberEntryForm.addEventListener("submit", async (e) => {
   e.preventDefault();
   const data = new FormData(e.target);
+  const value = data.get("value");
+  if (!value) {
+    return;
+  }
   console.log(Object.fromEntries(data.entries()));
   const res = await fetch("/message", {
     body: JSON.stringify(Object.fromEntries(data.entries())),
