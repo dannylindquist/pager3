@@ -2,7 +2,7 @@ import polka from "polka";
 import { parse as parseCookie } from "cookie-es";
 import { createHash } from "node:crypto";
 import { ValueStore } from "./valueStore.js";
-import { createReadStream } from "node:fs";
+import { createReadStream, existsSync } from "node:fs";
 import { readFile } from "node:fs/promises";
 import bodyParser from "body-parser";
 
@@ -120,6 +120,14 @@ app.get("/login", (req, res) => {
   loginPage.pipe(res);
 });
 
+app.get("/sync", (req, res) => {
+  const syncPage = createReadStream("./public/sync.html");
+  res.writeHead(200, {
+    "content-type": "text/html",
+  });
+  syncPage.pipe(res);
+});
+
 app.post("/login", (req, res) => {
   const location = req.body.location.toLowerCase();
   const password = req.body.password;
@@ -213,6 +221,10 @@ app.delete("/message", async (req, res) => {
 
 app.get("/assets/*", (req, res) => {
   const filename = "./public" + req.url;
+  if (!existsSync(filename)) {
+    res.writeHead(404, "not found");
+    return;
+  }
   const fileStream = createReadStream(filename);
   const contentType = filename.endsWith(".css")
     ? "text/style"

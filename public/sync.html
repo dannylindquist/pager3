@@ -1,0 +1,79 @@
+<html>
+  <head>
+    <title>Imprint Pager - Sync</title>
+    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="icon"
+      href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='0.9em' font-size='90'>📟</text></svg>"
+    />
+    <meta name="description" content="Pager app for imprint church" />
+    <link rel="stylesheet" href="/assets/styles.css" />
+    <script src="/assets/sync.js" type="module"></script>
+  </head>
+  <body class="relative bg-black text-white flex flex-col overflow-hidden">
+    <main
+      class="leading-none flex-1 flex flex-col justify-center items-center h-full"
+    >
+      <p class="text-sm bg-gray-800 text-left px-6 py-3 block font-mono">
+        This will only work with the following options:
+        <br />- Message with name of Pager. <br />- Token with name of Message.
+      </p>
+      <h2 class="py-4">Start Sync</h2>
+      <form id="sync-form" class="space-y-3" action="post">
+        <input
+          class="w-full py-3 px-2 rounded border border-gray-600 bg-gray-900 isabled:bg-gray-700"
+          type="text"
+          name="endpoint"
+          placeholder="localhost"
+          id="endpoint"
+        />
+        <input
+          class="w-full py-3 px-2 rounded border border-gray-600 bg-gray-900 isabled:bg-gray-700"
+          type="number"
+          name="port"
+          placeholder="4321"
+        />
+        <div class="flex gap-2 mx-auto">
+          <div>
+            <input
+              id="location-woodinville"
+              class="sr-only peer"
+              type="radio"
+              value="woodinville"
+              name="location"
+            />
+            <label
+              class="peer-checked:border-yellow-400 border border-gray-600 rounded py-3 px-3 flex justify-center"
+              for="location-woodinville"
+            >
+              Woodinville
+            </label>
+          </div>
+          <div>
+            <input
+              id="location-bothell"
+              class="sr-only peer"
+              type="radio"
+              value="bothell"
+              name="location"
+            />
+            <label
+              class="peer-checked:border-yellow-400 border border-gray-600 rounded py-3 px-3 flex justify-center"
+              for="location-bothell"
+            >
+              Bothell</label
+            >
+          </div>
+        </div>
+        <button
+          type="submit"
+          class="flex gap-2 justify-center py-3 min-w-[100px] rounded border border-gray-600 bg-gray-900 mx-auto disabled:bg-gray-700"
+        >
+          Start Sync
+        </button>
+        <p class="bg-red-200 px-2 py-2 hidden text-black" id="errorText"></p>
+      </form>
+    </main>
+  </body>
+</html>
