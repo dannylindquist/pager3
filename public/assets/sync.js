@@ -1,6 +1,12 @@
 const errorText = document.getElementById("errorText");
+const successText = document.getElementById("successText");
+const startButton = document.getElementById("start-button");
 let url = "";
+/**
+ * @type {EventSource}
+ */
 let eventsource = null;
+let syncStarted = false;
 
 async function testConnection(testUrl) {
   try {
@@ -112,6 +118,14 @@ const displayState = {
 const syncForm = document.getElementById("sync-form");
 syncForm.addEventListener("submit", async (e) => {
   e.preventDefault();
+  if (syncStarted) {
+    syncStarted = false;
+    eventsource?.close();
+    eventsource = null;
+    startButton.innerText = "Start Sync";
+    successText.classList.add("hidden");
+    return;
+  }
   const formInfo = new FormData(e.target);
   const location = formInfo.get("location");
   if (!location) {
@@ -128,6 +142,10 @@ syncForm.addEventListener("submit", async (e) => {
     errorText.classList.remove("hidden");
     return;
   }
+  syncStarted = true;
+  startButton.innerText = "Stop Sync";
+  successText.innerText = "Successfully started";
+  successText.classList.remove("hidden");
   url = testUrl;
   errorText.classList.add("hidden");
 
