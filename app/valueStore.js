@@ -2,6 +2,7 @@ export class ValueStore {
   values = {
     woodinville: [],
     bothell: [],
+    kenmore: [],
   };
   listeners = [];
   constructor() {

@@ -1,6 +1,15 @@
 const errorText = document.getElementById("errorText");
 const successText = document.getElementById("successText");
 const startButton = document.getElementById("start-button");
+const portInput = document.querySelector("input[name=port]");
+
+document.addEventListener("DOMContentLoaded", () => {
+  const port = localStorage.getItem("location-port");
+  if (port) {
+    portInput.value = port;
+  }
+});
+
 let url = "";
 /**
  * @type {EventSource}
@@ -135,6 +144,7 @@ syncForm.addEventListener("submit", async (e) => {
   }
   const server = formInfo.get("endpoint") || "localhost";
   const port = formInfo.get("port") || 1025;
+  localStorage.setItem("location-port", port);
   const testUrl = `http://${server}:${port}`;
 
   if (!(await testConnection(testUrl))) {

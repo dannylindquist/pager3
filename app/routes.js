@@ -15,8 +15,9 @@ const app = polka({
 
 const values = new ValueStore();
 
-const locations = ["bothell", "woodinville"];
+const locations = ["bothell", "woodinville", "kenmore"];
 const BOTHELL_HASH = hashString(`bothell${process.env.BOTHELL_PASSWORD}`);
+const KENMORE_HASH = hashString(`kenmore${process.env.KENMORE_PASSWORD}`);
 const WOODINVILLE_HASH = hashString(
   `woodinville${process.env.WOODINVILLE_PASSWORD}`
 );
@@ -41,6 +42,9 @@ function getLocationHash(location) {
   }
   if (location === "woodinville") {
     return WOODINVILLE_HASH;
+  }
+  if (location === "kenmore") {
+    return KENMORE_HASH;
   }
 }
 
@@ -152,6 +156,15 @@ app.post("/login", (req, res) => {
     }
   } else if (location === "bothell") {
     if (password !== process.env.BOTHELL_PASSWORD) {
+      res
+        .writeHead(403, {
+          "content-type": "application/json",
+        })
+        .end(JSON.stringify({ message: "Invalid credentials" }));
+      return;
+    }
+  } else if (location === "kenmore") {
+    if (password !== process.env.KENMORE_PASSWORD) {
       res
         .writeHead(403, {
           "content-type": "application/json",
